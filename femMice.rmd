@@ -1,0 +1,28 @@
+---
+title: "file 1"
+author: "Ramesh Chellaton"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Uses Female Mice Weights dataset & dplyr package
+```{r load libraries + csv file}
+library(dplyr)
+data <- read.csv('femaleMiceWeights.csv')
+```
+
+```{r split data into control & treatment}
+control <- select(filter(data, Diet=='chow'), Bodyweight)
+treatment <- select(filter(data, Diet=='hf'), Bodyweight)
+```
+
+```{r}
+print(paste('Control Mean:', mean(control$Bodyweight)))
+print(paste('Treatment Mean:', mean(treatment$Bodyweight)))
+print(paste('Treatment - Control:',
+            mean(control$Bodyweight) - mean(treatment$Bodyweight)))
+```
